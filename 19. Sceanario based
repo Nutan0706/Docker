@@ -1,0 +1,37 @@
+Q.write a docker file to have the http server as container on port 80 and have config file copied  and the cpu and memory inside the container should fetched
+
+Dockerfile
+====================
+# Use the official nginx image as a base
+FROM nginx :latest
+
+# Copy custom configuration file to the container
+COPY ./config/nginx.conf /etc/config/nginx.conf
+
+# Set the port number
+EXPOSE 80
+
+# Install tools to check CPU and memory info
+RUN apt-get update && apt-get install -y procps
+
+# Command to run Nginx server
+CMD ["nginx", "-g", "daemon off;"]
+
+# Script to print CPU and memory info
+RUN echo -e '#!/bin/bash\n\n' \
+  'echo "CPU Info:"\n' \
+  'cat /proc/cpuinfo\n' \
+  'echo "Memory Info:"\n' \
+  'cat /proc/meminfo\n' \
+  '> /container_info.txt' \
+  && chmod +x /bin/sh
+
+  # Run CPU and memory info script after container starts
+CMD ["/bin/sh", "-c", "nginx -g 'daemon off;' && cat /proc/cpuinfo && cat /proc/meminfo"]
+
+
+you can build the Docker image using:
+docker build -t http-server .
+
+And run the container:
+docker run -p 80:80 http-server
