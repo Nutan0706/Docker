@@ -1,1 +1,34 @@
+Docker images Features
+1. Lighweight 
+    -> share resource efficiently
+    -> as they use the host OS kernal instead running full OS
+2. Layered Structure
+    -> images are composed of multiplies read only layers. each layers represents a set of file sytem chnages like(Modificaiton, addition, deletion)
+3. immutability
+   -> one built they cannot be altered
+4. portability 
+5. versioning and tags
+6. base image support
+7. security Features
+   -> images can include signed digest for authenticity verification, ensuring that the image has'nt been tempered with
+   -> tools like DOCKER CONTENT TRUST(DCT) can be used to enforce singing plicies
 
+Characteristics of Docker Images
+1. File system snapshot
+2. Union file system(UFS)
+   -> docker uses a union file system to stack layers and preent them as single cohensive file system
+3. Read only layers
+   -> images are composed of read-only layers, while containers add a writeable layer on top for runtime chnages
+4. Delarative configuration
+5. OS and architecuture
+6. Compact storage
+   -> shared layer between image minimize storage usages and speed up downloads
+7. Dependency isolation
+   -> each image encapsulated its dependencies, ensuring no conflits between app. running on the same host
+8. Stateless
+   -> image are inherently Stateless
+   -> persistent storages requires mounting volumes or using external storage solution
+9.distribution format
+  -> image are distributed as tarball files
+10.identified hashes
+  -> each images has a unique SHA-256 digest hash for identification/
